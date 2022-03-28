@@ -20,9 +20,10 @@ class MainActivity : AppCompatActivity() {
         val clear:TextView = findViewById(R.id.clear)
 
         val apiKey = "fbf776044aae069019d6851d8622de8f"
+        val url = "https://api.openweathermap.org/data/2.5/weather?lang=ja"
 
         btnHKD.setOnClickListener {
-
+            val url = "$url&q=tokyo&appid=$apiKey"
         }
 
 
