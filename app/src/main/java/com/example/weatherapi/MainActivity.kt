@@ -19,6 +19,12 @@ class MainActivity : AppCompatActivity() {
         val lowTem:TextView = findViewById(R.id.lowTem)
         val clear:TextView = findViewById(R.id.clear)
 
+        val apiKey = "fbf776044aae069019d6851d8622de8f"
+
+        btnHKD.setOnClickListener {
+
+        }
+
 
 
     }
