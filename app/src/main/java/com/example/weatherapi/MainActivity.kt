@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,9 +28,25 @@ class MainActivity : AppCompatActivity() {
 
         btnHKD.setOnClickListener {
             val url = "$url&q=tokyo&appid=$apiKey"
+
+            weatherTask(url)
         }
 
-
-
     }
+    private fun weatherTask(url:String){
+        lifecycleScope.launch{
+            //HTTP通信
+            val result = weatherBackgroundTask(url)
+
+           // weatherJsonTask(result)
+        }
+    }
+
+    private suspend fun weatherBackgroundTask(url:String):String{
+        val response = withContext(Dispatchers.IO){
+            var httpResult = ""
+        }
+
+         return response
+   }
 }
