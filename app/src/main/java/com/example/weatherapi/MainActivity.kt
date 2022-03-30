@@ -8,7 +8,9 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONException
 import java.io.BufferedReader
+import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.URL
@@ -51,10 +53,18 @@ class MainActivity : AppCompatActivity() {
             var httpResult = ""
 
             try{
-                val urlObj = URL(url)
 
+                val urlObj = URL(url)
                 val br = BufferedReader(InputStreamReader(urlObj.openStream()))
+                httpResult = br.readText()//文字列に変換
+
+            } catch (e:IOException){
+                e.printStackTrace()
+            } catch (e:JSONException){
+                e.printStackTrace()
             }
+
+            return@withContext httpResult
         }
 
          return response
