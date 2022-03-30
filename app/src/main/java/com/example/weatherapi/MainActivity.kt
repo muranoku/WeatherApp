@@ -8,6 +8,10 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.net.URL
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,13 +42,19 @@ class MainActivity : AppCompatActivity() {
             //HTTP通信
             val result = weatherBackgroundTask(url)
 
-           // weatherJsonTask(result)
+            weatherJsonTask(result)
         }
     }
 
     private suspend fun weatherBackgroundTask(url:String):String{
         val response = withContext(Dispatchers.IO){
             var httpResult = ""
+
+            try{
+                val urlObj = URL(url)
+
+                val br = BufferedReader(InputStreamReader(urlObj.openStream()))
+            }
         }
 
          return response
