@@ -69,4 +69,10 @@ class MainActivity : AppCompatActivity() {
 
          return response
    }
+    private fun weatherJsonTask(result: String){
+        val cityName:TextView = findViewById(R.id.cityName)
+        val cityWeather:TextView = findViewById(R.id.cityWeather)
+        val highTem:TextView = findViewById(R.id.highTem)
+        val lowTem:TextView = findViewById(R.id.lowTem)
+    }
 }
