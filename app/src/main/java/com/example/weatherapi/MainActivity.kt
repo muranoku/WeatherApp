@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val url = "https://api.openweathermap.org/data/2.5/weather?lang=ja"
 
         btnHKD.setOnClickListener {
-            val url = "$url&q=tokyo&appid=$apiKey"
+            val url = "$url&q=hakodate&appid=$apiKey"
 
             weatherTask(url)
         }
@@ -76,9 +76,12 @@ class MainActivity : AppCompatActivity() {
         val highTem:TextView = findViewById(R.id.highTem)
         val lowTem:TextView = findViewById(R.id.lowTem)
 
-        val jsonObject = JSONObject(result)
+        val jsonObj = JSONObject(result)
 
-        val cityName1 = jsonObject.getString("name")
+        val cityName1 = jsonObj.getString("name")
         cityName.text = cityName1
+
+        val weatherJSONArray = jsonObj.getJSONArray("name")
+
     }
 }
