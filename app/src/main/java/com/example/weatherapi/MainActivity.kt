@@ -35,11 +35,26 @@ class MainActivity : AppCompatActivity() {
 
         btnHKD.setOnClickListener {
             val url = "$url&q=hakodate&appid=$apiKey"
-
             weatherTask(url)
         }
 
+        btnHKT.setOnClickListener {
+            val url = "$url&q=sapporp&appid=$apiKey"
+            weatherTask(url)
+        }
+
+        clear.setOnClickListener{
+            cityName.text = "都市名"
+            cityWeather.text = "都市の天気"
+            highTem.text = "最高気温"
+            lowTem.text = "最低気温"
+
+
+        }
+
     }
+
+
     private fun weatherTask(url:String){
         lifecycleScope.launch{
             //HTTP通信
@@ -77,11 +92,20 @@ class MainActivity : AppCompatActivity() {
         val lowTem:TextView = findViewById(R.id.lowTem)
 
         val jsonObj = JSONObject(result)
-
         val cityName1 = jsonObj.getString("name")
         cityName.text = cityName1
 
-        val weatherJSONArray = jsonObj.getJSONArray("name")
+        val weatherJSONArray = jsonObj.getJSONArray("weather")
+        val weatherJSON = weatherJSONArray.getJSONObject(0)
+        val weather = weatherJSON.getString("description")
+        cityWeather.text = weather
+
+        val main = jsonObj.getJSONObject("main")
+        highTem.text = "最高気温:${main.getInt("tempMax")-273}℃"
+        lowTem.text = "最低気温:${main.getInt("tempLow")-273}℃"
+
+
+
 
     }
 }
