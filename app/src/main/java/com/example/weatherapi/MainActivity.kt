@@ -28,19 +28,19 @@ class MainActivity : AppCompatActivity() {
         val cityWeather:TextView = findViewById(R.id.cityWeather)
         val highTem:TextView = findViewById(R.id.highTem)
         val lowTem:TextView = findViewById(R.id.lowTem)
-        val clear:TextView = findViewById(R.id.clear)
+        val clear:Button = findViewById(R.id.clear)
 
         val apiKey = "fbf776044aae069019d6851d8622de8f"
-        val url = "https://api.openweathermap.org/data/2.5/weather?lang=ja"
+        val mainUrl = "https://api.openweathermap.org/data/2.5/weather?lang=ja"
 
         btnHKD.setOnClickListener {
-            val url = "$url&q=hakodate&appid=$apiKey"
-            weatherTask(url)
+            val weatherUrl = "$mainUrl&q=hakodate&appid=$apiKey"
+            weatherTask(weatherUrl)
         }
 
         btnHKT.setOnClickListener {
-            val url = "$url&q=sapporp&appid=$apiKey"
-            weatherTask(url)
+            val weatherUrl = "$mainUrl&q=sapporo&appid=$apiKey"
+            weatherTask(weatherUrl)
         }
 
         clear.setOnClickListener{
@@ -55,22 +55,22 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun weatherTask(url:String){
+    private fun weatherTask(weatherUrl: String){
         lifecycleScope.launch{
             //HTTP通信
-            val result = weatherBackgroundTask(url)
+            val result = weatherBackgroundTask(weatherUrl)
 
             weatherJsonTask(result)
         }
     }
 
-    private suspend fun weatherBackgroundTask(url:String):String{
+    private suspend fun weatherBackgroundTask(weatherUrl:String):String{
         val response = withContext(Dispatchers.IO){
             var httpResult = ""
 
             try{
 
-                val urlObj = URL(url)
+                val urlObj = URL(weatherUrl)
                 val br = BufferedReader(InputStreamReader(urlObj.openStream()))
                 httpResult = br.readText()//文字列に変換
 
